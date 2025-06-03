@@ -144,3 +144,26 @@ WHERE species_id NOT IN (
     SELECT DISTINCT species_id FROM sightings
 );
 
+--Problem 6
+-- Show the most recent 2 sightings.
+
+SELECT common_name, sighting_time, name
+FROM sightings
+JOIN species USING(species_id)
+JOIN rangers USING(ranger_id)
+ORDER BY sighting_time DESC
+LIMIT 2;
+
+SELECT common_name, sighting_time, name
+FROM sightings s, species sp,rangers r
+WHERE s.species_id = sp.species_id
+AND s.ranger_id = r.ranger_id
+ORDER BY sighting_time DESC
+LIMIT 2;
+
+--Problem 7
+--Update all species discovered before year 1800 to have status 'Historic'.
+
+UPDATE species
+SET conservation_status = 'Historic'
+WHERE EXTRACT(YEAR FROM discovery_date) < 1800;
