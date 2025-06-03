@@ -135,3 +135,12 @@ SELECT name,COUNT(s.ranger_id) AS total_sightings
 FROM rangers AS r
 JOIN sightings AS s USING (ranger_id)
 GROUP BY name;
+
+--Problem 5
+--List species that have never been sighted.
+
+SELECT common_name FROM species
+WHERE species_id NOT IN (
+    SELECT DISTINCT species_id FROM sightings
+);
+
